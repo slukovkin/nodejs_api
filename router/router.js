@@ -1,13 +1,8 @@
 import Router from 'express'
+import { createUser } from '../controllers/user_controller.js'
 
 const router = new Router()
 
-router.get('/api', (req, res) => {
-  res.end(`API NodeJS`)
-})
-
-router.get('/', (req, res) => {
-  res.end('Home Page')
-})
+router.post('/api/user', createUser) // Создание пользователя в БД
 
 export default router

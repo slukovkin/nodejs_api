@@ -9,6 +9,7 @@ export const sequelize = new Sequelize(env.DB_NAME, env.DB_USER, env.DB_PASS, {
 const db_init = async () => {
   try {
     await sequelize.authenticate()
+    await sequelize.sync()
     console.log("Database connecting ON")
   } catch (error) {
     console.log("Database connecting FALSE", error)

@@ -3,7 +3,7 @@ import { env } from "./config/config.js"
 import router from "./router/router.js"
 import db_init from "./database/db_init.js"
 
-const PORT = env.PORT || 3003
+const PORT = env.PORT || 3005
 
 const app = express()
 app.use(express.json())
