@@ -8,7 +8,7 @@ const PORT = env.PORT || 3005
 const app = express()
 app.use(express.json())
 
-app.use("/", router)
+app.use('/api', router)
 
 db_init()
 

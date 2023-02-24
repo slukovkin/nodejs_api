@@ -3,18 +3,17 @@ import { hashPassword } from "../utils/hashPassword.js"
 
 export const createUser = async (req, res) => {
   try {
-    const [login, email, password, avatarUrl] = req.body
+    const { login, email, password, avatarUrl } = req.body
     const userIfExits = await User.findOne({ where: { email: email } })
-    if (!userIfExits) {
+    if (userIfExits) {
       return res.status(200).json({
         message: "Пользователь уже существует в базе",
       })
     }
-    const passwordHash = hashPassword(password)
     const user = User.build({
       login: login,
       email: email,
-      password: passwordHash,
+      password: await hashPassword(password),
       avatarUrl: avatarUrl,
     })
     await user.save()
