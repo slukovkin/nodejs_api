@@ -3,7 +3,7 @@ import { hashPassword } from "../utils/hashPassword.js"
 
 export const createUser = async (req, res) => {
   try {
-    const { login, email, password, avatarUrl } = req.body
+    const { email, password, avatarUrl } = req.body
     const userIfExits = await User.findOne({ where: { email: email } })
     if (userIfExits) {
       return res.status(200).json({
@@ -11,7 +11,7 @@ export const createUser = async (req, res) => {
       })
     }
     const user = User.build({
-      login: login,
+      login: email.match(/^([\w ]+)/gms).toString(),
       email: email,
       password: await hashPassword(password),
       avatarUrl: avatarUrl,
