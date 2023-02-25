@@ -1,5 +1,6 @@
 import { User } from "../database/models/User.js"
 import { hashPassword } from "../utils/hashPassword.js"
+import { genLoginOfEmail } from "../utils/genLoginOfEmail.js"
 
 export const createUser = async (req, res) => {
   try {
@@ -11,7 +12,7 @@ export const createUser = async (req, res) => {
       })
     }
     const user = User.build({
-      login: email.match(/^([\w ]+)/gms).toString(),
+      login: genLoginOfEmail(email),
       email: email,
       password: await hashPassword(password),
       avatarUrl: avatarUrl,
@@ -72,19 +73,24 @@ export const findUserAll = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const { email, password, avatarUrl } = req.body
-    await User.update(
+    const error = await User.update(
       {
-        login: email.match(/^([\w ]+)/gms).toString(),
+        login: genLoginOfEmail(email),
         email: email,
         password: await hashPassword(password),
-        avatarUrl: avatarUrl
+        avatarUrl: avatarUrl,
       },
       {
         where: { id: req.params.id },
       }
     )
+    if (!error[0]) {
+      return res.status(200).json({
+        message: "Пользователь не найден в БД",
+      })
+    }
     res.status(201).json({
-      message: 'Данные пользователя успешно обновлены в БД'
+      message: "Данные пользователя успешно обновлены в БД",
     })
   } catch (error) {
     res.status(400).json({
