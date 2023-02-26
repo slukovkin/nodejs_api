@@ -1,12 +1,13 @@
 import Router from "express"
 import * as userController from "../controllers/user_controller.js"
+import * as authController from "../controllers/auth_controller.js"
 import { checkedUserData } from "../middleware/userValidator.js"
 
 const router = new Router()
 
-router.get("/", (req, res) => {
-  res.send("Аудентификация пользователя")
-})
+router.post("/", authController.auth)
+router.post("/login", authController.login)
+router.post("/logout", authController.logout)
 
 router.get("/user/:id", userController.findUserOne) // Поиск пользоватля в БД по ID
 router.get("/user", userController.findUserAll) // Поиск всех пользователей в БД

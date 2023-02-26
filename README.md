@@ -8,4 +8,5 @@
     *  DB_USER: "имя пользователя", // имя пользователя базы данных
     *  DB_PASS: "пароль пользователя", // пароль пользователя базы данных
     *  DB_HOST: "localhost" // адрес базы данных
-    *  DB_DIALECT: "mariadb" // 'mysql' | 'postgres' | 'sqlite' | 'mariadb' }
+    *  DB_DIALECT: "mariadb" // 'mysql' | 'postgres' | 'sqlite' | 'mariadb'
+    *  SECRET: "secret sting" // строка для формирования jwt tokena }
