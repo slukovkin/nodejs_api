@@ -1,9 +1,17 @@
+import { validationResult } from "express-validator"
 import { User } from "../database/models/User.js"
 import { hashPassword } from "../utils/hashPassword.js"
 import { genLoginOfEmail } from "../utils/genLoginOfEmail.js"
 
 export const createUser = async (req, res) => {
   try {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        message: "Ошибка валидации",
+        error: errors.array(),
+      })
+    }
     const { email, password, avatarUrl } = req.body
     const userIfExits = await User.findOne({ where: { email: email } })
     if (userIfExits) {
