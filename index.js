@@ -9,6 +9,7 @@ const app = express()
 app.use(express.json())
 
 app.use('/api', router)
+app.use('/auth', router)
 
 db_init()
 
