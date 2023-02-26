@@ -1,4 +1,5 @@
 import express from "express"
+import cors from "cors"
 import { env } from "./config/config.js"
 import router from "./router/router.js"
 import db_init from "./database/db_init.js"
@@ -7,9 +8,10 @@ const PORT = env.PORT || 3005
 
 const app = express()
 app.use(express.json())
+app.use(cors)
 
-app.use('/api', router)
-app.use('/auth', router)
+app.use("/api", router)
+app.use("/auth", router)
 
 db_init()
 

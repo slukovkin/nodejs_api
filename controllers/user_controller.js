@@ -40,11 +40,18 @@ export const createUser = async (req, res) => {
 export const findUserOne = async (req, res) => {
   try {
     const id = req.params.id
-    const user = await User.findOne({ where: { id: id } })
+    let user = await User.findOne({ where: { id: id } })
     if (!user) {
       return res.status(200).json({
         message: "Пользователь не найден",
       })
+    }
+    user = {
+      id: user.id,
+      login: user.login,
+      email: user.email,
+      avatarUrl: user.avatarUrl,
+      role: user.role
     }
     res.status(200).json({
       message: "Пользователь найден в БД",
@@ -60,7 +67,7 @@ export const findUserOne = async (req, res) => {
 
 export const findUserAll = async (req, res) => {
   try {
-    const users = await User.findAll()
+    let users = await User.findAll()
     if (!users) {
       return res.status(200).json({
         message: "Пользователей в БД не найдено",
