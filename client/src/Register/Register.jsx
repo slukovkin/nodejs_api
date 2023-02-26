@@ -1,23 +1,30 @@
+import axios from "axios"
 import { useEffect, useState } from "react"
 import cl from "./Register.module.css"
 
-export const Register = () => {
+export const Register = ({ url }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passconfirm, setPassConfirm] = useState("")
   const [warning, setWarning] = useState("")
 
+  const submitHandler = (e) => {
+    e.preventDefault()
+    password == passconfirm
+      ? axios({
+          method: "post",
+          url: url,
+          data: {
+            email: email,
+            password: password,
+          },
+        })
+      : setWarning("Пароли не совпадают")
+  }
+
   const emailHandler = (e) => {
     setEmail(e.target.value)
   }
-
-  useEffect(() => {
-    if (password === passconfirm) {
-      setPassword(password)
-    } else {
-      setWarning("Пароли не совпадают")
-    }
-  }, [passconfirm])
 
   const passwordHandler = (e) => {
     setPassword(e.target.value)
@@ -29,7 +36,7 @@ export const Register = () => {
 
   return (
     <div className='container'>
-      <form className={cl.form}>
+      <form className={cl.form} onSubmit={submitHandler}>
         <h2 className='text-center m-3'>Регистрация пользователя</h2>
         <div className='form-group mb-3'>
           <input
