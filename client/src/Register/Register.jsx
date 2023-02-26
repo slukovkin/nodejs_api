@@ -7,6 +7,7 @@ export const Register = ({ url }) => {
   const [password, setPassword] = useState("")
   const [passconfirm, setPassConfirm] = useState("")
   const [warning, setWarning] = useState("")
+  const [response, setResponse] = useState("")
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -19,6 +20,19 @@ export const Register = ({ url }) => {
             password: password,
           },
         })
+          .then((res) => {
+            setResponse(res.data.message)
+            setEmail("")
+            setPassword("")
+            setPassConfirm("")
+            setWarning("")
+            setTimeout(() => {
+              setResponse('')
+            },2000)
+          })
+          .catch((err) => {
+            setWarning(err.response.data.error[0].msg)
+          })
       : setWarning("Пароли не совпадают")
   }
 
@@ -77,6 +91,7 @@ export const Register = ({ url }) => {
         </div>
         <button className='btn btn-primary btn-sm'>Зарегистрироваться</button>
       </form>
+      <h3 className='text-center text-danger'>{response}</h3>
     </div>
   )
 }
