@@ -8,7 +8,7 @@ export const auth = (req, res) => {}
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body
-    const user = await User.findOne({ where: { email: email } })
+    let user = await User.findOne({ where: { email: email } })
     if (!user) {
       return res.status(400).json({
         message: "Ошибка при запросе пользователя",
@@ -27,6 +27,13 @@ export const login = async (req, res) => {
       env.SECRET,
       { expiresIn: "1h" }
     )
+    user = {
+      id: user.id,
+      login: user.login,
+      email: user.email,
+      avatarUrl: user.avatarUrl,
+      role: user.role
+    }
     res.status(200).json({
       message: "Доступ разрешен",
       user,
