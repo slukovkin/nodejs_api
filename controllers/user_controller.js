@@ -7,7 +7,7 @@ export const createUser = async (req, res) => {
   try {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      return res.status(400).json({
+      return res.status(404).json({
         message: "Ошибка валидации",
         error: errors.array(),
       })
@@ -30,7 +30,7 @@ export const createUser = async (req, res) => {
       message: "Пользователь успешно сохранен в базу данных",
     })
   } catch (error) {
-    res.status(400).json({
+    res.status(500).json({
       message: "Что-то пошло не так",
       error,
     })
@@ -42,7 +42,7 @@ export const findUserOne = async (req, res) => {
     const id = req.params.id
     let user = await User.findOne({ where: { id: id } })
     if (!user) {
-      return res.status(200).json({
+      return res.status(404).json({
         message: "Пользователь не найден",
       })
     }
@@ -58,7 +58,7 @@ export const findUserOne = async (req, res) => {
       user,
     })
   } catch (error) {
-    res.status(400).json({
+    res.status(500).json({
       message: "Что-то пошло не так",
       error,
     })
@@ -69,7 +69,7 @@ export const findUserAll = async (req, res) => {
   try {
     let users = await User.findAll()
     if (!users) {
-      return res.status(200).json({
+      return res.status(404).json({
         message: "Пользователей в БД не найдено",
       })
     }
@@ -78,7 +78,7 @@ export const findUserAll = async (req, res) => {
       users,
     })
   } catch (error) {
-    res.status(400).json({
+    res.status(500).json({
       message: "Что-то пошло не так",
       error,
     })
@@ -100,7 +100,7 @@ export const updateUser = async (req, res) => {
       }
     )
     if (!error[0]) {
-      return res.status(200).json({
+      return res.status(404).json({
         message: "Пользователь не найден в БД",
       })
     }
@@ -108,7 +108,7 @@ export const updateUser = async (req, res) => {
       message: "Данные пользователя успешно обновлены в БД",
     })
   } catch (error) {
-    res.status(400).json({
+    res.status(500).json({
       message: "Что-то пошло не так",
       error,
     })
@@ -120,7 +120,7 @@ export const deleteUser = async (req, res) => {
     const { email } = req.body
     const user = await User.destroy({ where: { email } })
     if (!user) {
-      return res.status(200).json({
+      return res.status(404).json({
         message: "Пользователь не найден в БД",
       })
     }
@@ -128,7 +128,7 @@ export const deleteUser = async (req, res) => {
       message: `Пользователь успешно удален из БД`,
     })
   } catch (error) {
-    res.status(400).json({
+    res.status(500).json({
       message: "Что-то пошло не так",
       error,
     })

@@ -10,13 +10,13 @@ export const login = async (req, res) => {
     const { email, password } = req.body
     let user = await User.findOne({ where: { email: email } })
     if (!user) {
-      return res.status(400).json({
+      return res.status(404).json({
         message: "Ошибка при запросе пользователя",
       })
     }
     const isPasswordCorrect = await bcrypt.compare(password, user.password)
     if (!isPasswordCorrect) {
-      return res.status(400).json({
+      return res.status(401).json({
         message: "Ошибка аудентификации. Доступ запрещен",
       })
     }
@@ -32,7 +32,7 @@ export const login = async (req, res) => {
       login: user.login,
       email: user.email,
       avatarUrl: user.avatarUrl,
-      role: user.role
+      role: user.role,
     }
     res.status(200).json({
       message: "Доступ разрешен",
