@@ -33,7 +33,7 @@ export const Login = ({ url, setIsLogin }) => {
         setResponse(res.data.message)
         setEmail("")
         setPassword("")
-        setIsLogin(true)
+        setIsLogin(prev => !prev)
       })
       .catch((err) => {
         setResponse(err.response.data.message)

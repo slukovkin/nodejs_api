@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
-import cl from "./Register.module.css"
+
 
 export const Register = ({ url }) => {
   const [email, setEmail] = useState("")

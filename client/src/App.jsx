@@ -15,16 +15,11 @@ export const App = () => {
 
   return (
     <>
-      {islogin ? (
-        <WorkMenu isLogin={setIsLogin} />
-      ) : (
-        <Login url={LOGIN} setIsLogin={setIsLogin} />
-      )}
+      {islogin ? <WorkMenu isLogin={setIsLogin} /> : <Login url={LOGIN} setIsLogin={setIsLogin}/>}
 
       <Routes>
-        <Route path='/' />
         <Route path='/register' element={<Register url={URL} />} />
-        <Route path='/login' element={<Login url={LOGIN} />} />
+        {/* <Route path='/' element={<Login url={LOGIN} setIsLogin={setIsLogin}/>} /> */}
       </Routes>
     </>
   )
