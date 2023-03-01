@@ -9,8 +9,8 @@ export const Register = ({ url }) => {
   const [warning, setWarning] = useState("")
   const [response, setResponse] = useState("")
 
-  const submitHandler = (e) => {
-    e.preventDefault()
+  const submitHandler = (evt) => {
+    evt.preventDefault()
     password == passconfirm
       ? axios({
           method: "post",
@@ -27,31 +27,31 @@ export const Register = ({ url }) => {
             setPassConfirm("")
             setWarning("")
             setTimeout(() => {
-              setResponse('')
-            },2000)
+              setResponse("")
+            }, 2000)
           })
-          .catch((err) => {
+          .catc((err) => {
             setWarning(err.response.data.error[0].msg)
           })
       : setWarning("Пароли не совпадают")
   }
 
-  const emailHandler = (e) => {
-    setEmail(e.target.value)
+  const emailHandler = (evt) => {
+    setEmail(evt.target.value)
   }
 
-  const passwordHandler = (e) => {
-    setPassword(e.target.value)
+  const passwordHandler = (evt) => {
+    setPassword(evt.target.value)
   }
 
-  const passConfirmHandler = (e) => {
-    setPassConfirm(e.target.value)
+  const passConfirmHandler = (evt) => {
+    setPassConfirm(evt.target.value)
   }
 
   return (
-    <div className='container'>
-      <form className={cl.form} onSubmit={submitHandler}>
-        <h2 className='text-center m-3'>Регистрация пользователя</h2>
+    <div className='container widget'>
+      <form className='widget_body' onSubmit={submitHandler}>
+        <h3 className='text-center m-3'>Регистрация</h3>
         <div className='form-group mb-3'>
           <input
             type='email'
@@ -89,9 +89,11 @@ export const Register = ({ url }) => {
             {warning}
           </small>
         </div>
-        <button className='btn btn-primary btn-sm'>Зарегистрироваться</button>
+        <div className='d-flex justify-content-center'>
+          <button className='btn btn-primary btn-sm'>Зарегистрироваться</button>
+        </div>
+        <h5 className='text-center text-danger mt-3'>{response}</h5>
       </form>
-      <h3 className='text-center text-danger'>{response}</h3>
     </div>
   )
 }

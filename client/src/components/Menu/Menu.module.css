@@ -1,0 +1,7 @@
+.menu {
+  display: flex;
+  align-items: center;
+  background: #153C68;
+  color: wheat;
+  height: 32px;
+}
