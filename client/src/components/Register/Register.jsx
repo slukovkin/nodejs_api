@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export const Register = ({ url, setIsLogin }) => {
   const [email, setEmail] = useState("")
@@ -8,6 +8,8 @@ export const Register = ({ url, setIsLogin }) => {
   const [passconfirm, setPassConfirm] = useState("")
   const [warning, setWarning] = useState("")
   const [response, setResponse] = useState("")
+
+  const redirect = useNavigate()
 
   const submitHandler = (evt) => {
     evt.preventDefault()
@@ -41,7 +43,7 @@ export const Register = ({ url, setIsLogin }) => {
   }
 
   const isAuth = () => {
-    return <Navigate replace to={'/login'} />
+    return redirect('/')
   }
 
   const emailHandler = (evt) => {
