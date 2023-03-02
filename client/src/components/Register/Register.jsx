@@ -1,8 +1,8 @@
 import axios from "axios"
 import { useState } from "react"
+import { Navigate } from "react-router-dom"
 
-
-export const Register = ({ url }) => {
+export const Register = ({ url, setIsLogin }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passconfirm, setPassConfirm] = useState("")
@@ -30,10 +30,18 @@ export const Register = ({ url }) => {
               setResponse("")
             }, 2000)
           })
-          .catc((err) => {
+          .then(() => {
+            setIsLogin(false)
+            isAuth()
+          })
+          .catch((err) => {
             setWarning(err.response.data.error[0].msg)
           })
       : setWarning("Пароли не совпадают")
+  }
+
+  const isAuth = () => {
+    return <Navigate replace to={'/login'} />
   }
 
   const emailHandler = (evt) => {

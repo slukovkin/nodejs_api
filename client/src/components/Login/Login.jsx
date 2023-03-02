@@ -1,5 +1,5 @@
 import cl from "./Login.module.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { NavLink } from "react-router-dom"
 import axios from "axios"
@@ -8,6 +8,10 @@ export const Login = ({ url, setIsLogin }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [response, setResponse] = useState("")
+
+  useEffect(() => {
+    setResponse("")
+  }, [])
 
   const emailHabdler = (evt) => {
     const isEmail = evt.target.value
@@ -33,7 +37,7 @@ export const Login = ({ url, setIsLogin }) => {
         setResponse(res.data.message)
         setEmail("")
         setPassword("")
-        setIsLogin(prev => !prev)
+        setIsLogin(true)
       })
       .catch((err) => {
         setResponse(err.response.data.message)
@@ -43,6 +47,7 @@ export const Login = ({ url, setIsLogin }) => {
       })
   }
 
+  
   return (
     <div className='widget'>
       <div className='widget_body'>
@@ -73,7 +78,7 @@ export const Login = ({ url, setIsLogin }) => {
               />
             </div>
             <div className='form-group text-center'>
-              <NavLink to=''>Забыли пароль?</NavLink>
+              <NavLink to='/'>Забыли пароль?</NavLink>
             </div>
 
             <div className={cl.inline_blocks}>
@@ -86,7 +91,7 @@ export const Login = ({ url, setIsLogin }) => {
                 </button>
               </div>
               <div className='form-group text-center mb-2'>
-                <NavLink to='register'>Регистрация</NavLink>
+                <NavLink to="/register">Регистрация</NavLink>
               </div>
             </div>
             <div className='text-center'>

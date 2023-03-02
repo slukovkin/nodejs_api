@@ -5,7 +5,7 @@ import Button from "react-bootstrap/esm/Button"
 
 export const WorkMenu = ({ isLogin }) => {
   const exitHandler = () => {
-    isLogin((prev) => !prev)
+    isLogin(false)
   }
 
   return (
