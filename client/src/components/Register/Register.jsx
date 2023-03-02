@@ -1,16 +1,18 @@
 import axios from "axios"
 import { useState } from "react"
-import cl from "./Register.module.css"
+import { useNavigate } from "react-router-dom"
 
-export const Register = ({ url }) => {
+export const Register = ({ url, setIsLogin }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passconfirm, setPassConfirm] = useState("")
   const [warning, setWarning] = useState("")
   const [response, setResponse] = useState("")
 
-  const submitHandler = (e) => {
-    e.preventDefault()
+  const redirect = useNavigate()
+
+  const submitHandler = (evt) => {
+    evt.preventDefault()
     password == passconfirm
       ? axios({
           method: "post",
@@ -27,8 +29,12 @@ export const Register = ({ url }) => {
             setPassConfirm("")
             setWarning("")
             setTimeout(() => {
-              setResponse('')
-            },2000)
+              setResponse("")
+            }, 2000)
+          })
+          .then(() => {
+            setIsLogin(false)
+            isAuth()
           })
           .catch((err) => {
             setWarning(err.response.data.error[0].msg)
@@ -36,22 +42,26 @@ export const Register = ({ url }) => {
       : setWarning("Пароли не совпадают")
   }
 
-  const emailHandler = (e) => {
-    setEmail(e.target.value)
+  const isAuth = () => {
+    return redirect('/')
   }
 
-  const passwordHandler = (e) => {
-    setPassword(e.target.value)
+  const emailHandler = (evt) => {
+    setEmail(evt.target.value)
   }
 
-  const passConfirmHandler = (e) => {
-    setPassConfirm(e.target.value)
+  const passwordHandler = (evt) => {
+    setPassword(evt.target.value)
+  }
+
+  const passConfirmHandler = (evt) => {
+    setPassConfirm(evt.target.value)
   }
 
   return (
-    <div className='container'>
-      <form className={cl.form} onSubmit={submitHandler}>
-        <h2 className='text-center m-3'>Регистрация пользователя</h2>
+    <div className='container widget'>
+      <form className='widget_body' onSubmit={submitHandler}>
+        <h3 className='text-center m-3'>Регистрация</h3>
         <div className='form-group mb-3'>
           <input
             type='email'
@@ -89,9 +99,11 @@ export const Register = ({ url }) => {
             {warning}
           </small>
         </div>
-        <button className='btn btn-primary btn-sm'>Зарегистрироваться</button>
+        <div className='d-flex justify-content-center'>
+          <button className='btn btn-primary btn-sm'>Зарегистрироваться</button>
+        </div>
+        <h5 className='text-center text-danger mt-3'>{response}</h5>
       </form>
-      <h3 className='text-center text-danger'>{response}</h3>
     </div>
   )
 }

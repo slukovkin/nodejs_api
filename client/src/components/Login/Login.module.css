@@ -1,0 +1,32 @@
+.title {
+  margin-top: 100px;
+}
+
+.widget {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  max-width: 600px;
+  margin: 100px auto;
+  border-radius: 10px;
+}
+
+.widget_body {
+  background-color: #fbfbfb;
+  -webkit-box-shadow: 1px 0 10px 1px rgb(0 0 0 / 30%);
+  -moz-box-shadow: 1px 0 10px 1px rgba(0,0,0,.3);
+  box-shadow: 1px 0 10px 1px rgb(0 0 0 / 30%);
+  padding: 15px;
+  border-radius: 10px;
+}
+.inline_blocks {
+  align-self: center;
+}
+.buttons_preview {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}

@@ -1,4 +1,3 @@
-import { where } from "sequelize"
 import { Good } from "../database/models/Good.js"
 
 export const createGood = async (req, res) => {
@@ -30,6 +29,7 @@ export const createGood = async (req, res) => {
     })
   }
 }
+
 export const findGoodOne = async (req, res) => {
   try {
     const code = req.params.code
