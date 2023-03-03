@@ -2,15 +2,21 @@ import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import Button from "react-bootstrap/esm/Button"
+import { NavLink, useNavigate } from "react-router-dom"
 
 export const WorkMenu = ({ isLogin }) => {
+  const redirect = useNavigate()
+
   const exitHandler = () => {
     isLogin(false)
+    return redirect("/")
   }
 
   return (
     <Navbar bg='dark' expand='lg' fixed='top' variant='dark'>
-      <Navbar.Brand href='#home' className="mx-3">Ваша фирма</Navbar.Brand>
+      <Navbar.Brand href='#home' className='mx-3'>
+        Ваша фирма
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='me-auto'>
@@ -35,9 +41,18 @@ export const WorkMenu = ({ isLogin }) => {
             <NavDropdown.Divider />
             <NavDropdown.Item href='#'>Контрагенты</NavDropdown.Item>
           </NavDropdown>
+          <NavDropdown title='Настройки' id='basic-nav-dropdown'>
+            <NavDropdown.Item>
+              <NavDropdown.Item>
+                <NavLink to="/options">Общие настройки</NavLink>
+              </NavDropdown.Item>
+            </NavDropdown.Item>
+          </NavDropdown>
         </Nav>
       </Navbar.Collapse>
-      <Button onClick={exitHandler} className="btn-sm mx-3 px-3">Выход</Button>
+      <Button onClick={exitHandler} className='btn-sm mx-3 px-3'>
+        Выход
+      </Button>
     </Navbar>
   )
 }
