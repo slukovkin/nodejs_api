@@ -20,10 +20,6 @@ export const App = () => {
       <Routes>
         <Route path="/" element={!islogin && <Login url={LOGIN} setIsLogin={setIsLogin} />} />
         <Route path='/register' element={<Register url={URL} setIsLogin={setIsLogin} />} />
-        {/* <Route
-          path='/'
-          element={<Login url={LOGIN} setIsLogin={setIsLogin} />}
-        /> */}
       </Routes>
     </>
   )
