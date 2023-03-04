@@ -4,12 +4,22 @@ import NavDropdown from "react-bootstrap/NavDropdown"
 import Button from "react-bootstrap/esm/Button"
 import { NavLink, useNavigate } from "react-router-dom"
 
-export const WorkMenu = ({ isLogin, setTitle }) => {
+export const WorkMenu = ({ isLogin, setTitle, setContent }) => {
+  const text = ["Журнал взаиморасчетов", "номер 1", "номер 2"]
+  const text1 = "Журнал счетов"
+  const text2 = "Журнал приходных накладных"
+  const text3 = "Журнал расходных накладных"
+
   const redirect = useNavigate()
 
   const exitHandler = () => {
     isLogin(false)
     return redirect("/")
+  }
+
+  const content = (evt) => {
+    setTitle(evt.target.text)
+    setContent(evt.target.title)
   }
 
   return (
@@ -23,8 +33,9 @@ export const WorkMenu = ({ isLogin, setTitle }) => {
           <NavDropdown title='Отчёты' id='basic-nav-dropdown'>
             <NavDropdown.Item>
               <NavLink
+                title={text}
                 to={"/workspace"}
-                onClick={(e) => setTitle("Взаиморасчёты")}
+                onClick={content}
               >
                 Взаиморасчёты
               </NavLink>
@@ -32,28 +43,24 @@ export const WorkMenu = ({ isLogin, setTitle }) => {
           </NavDropdown>
           <NavDropdown title='Журналы' id='basic-nav-dropdown'>
             <NavDropdown.Item>
-              <NavLink to={"/workspace"} onClick={(e) => setTitle("Счета")}>
+              <NavLink to='/workspace' onClick={content} title={text1}>
                 Счета
               </NavLink>
             </NavDropdown.Item>
             <NavDropdown.Item>
-              <NavLink
-                to={"/workspace"}
-                onClick={(e) => setTitle("Приходные накладные")}
-              >
+              <NavLink title={text2} to='/workspace' onClick={content}>
                 Приходные накладные
               </NavLink>
             </NavDropdown.Item>
             <NavDropdown.Item>
-              <NavLink
-                to='/workspace'
-                onClick={(e) => setTitle("Расходные накладные")}
-              >
+              <NavLink title={text3} to='/workspace' onClick={content}>
                 Расходные накладные
               </NavLink>
             </NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item to={"/workspace"}>Возвратные накладные</NavDropdown.Item>
+            <NavDropdown.Item to={"/workspace"}>
+              Возвратные накладные
+            </NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title='Справочники' id='basic-nav-dropdown'>
             <NavDropdown.Item to={"/workspace"}>Склады</NavDropdown.Item>

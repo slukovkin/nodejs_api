@@ -12,12 +12,13 @@ const URL = `http://localhost:${env.PORT}/api/user`
 const LOGIN = `http://localhost:${env.PORT}/api/login`
 
 export const App = () => {
-  const [islogin, setIsLogin] = useState(false)
+  const [islogin, setIsLogin] = useState(true)
   const [title, setTitle] = useState('')
+  const [content, setContent] = useState([])
 
   return (
     <>
-      {islogin && <WorkMenu isLogin={setIsLogin} setTitle={setTitle} /> }
+      {islogin && <WorkMenu isLogin={setIsLogin} setTitle={setTitle} setContent={setContent} /> }
 
       <Routes>
         <Route
@@ -32,7 +33,7 @@ export const App = () => {
         <Route path='/options' element={islogin && <Options />} />
         <Route
           path='/workspace'
-          element={<Workspace title={title} />}
+          element={title && <Workspace title={title} content={content} />}
         />
       </Routes>
     </>
